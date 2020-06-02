@@ -25,7 +25,7 @@ SECRET_KEY = '=+6c5f4+pxk#)_bv+b=jjrb0e+tc=1p#@*wdno1#xd0*&jo$h7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['legal24by7.herokuapp.com']
+ALLOWED_HOSTS = ['livelegal.herokuapp.com']
 
 
 # Application definition
