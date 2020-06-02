@@ -1,0 +1,17 @@
+{% extends 'home/main.html' %} {% block content %}
+
+<h1>Home</h1>
+<br><br>
+<a href="{% url 'make_request' %}">Make a Request</a><br><br>
+
+<a href="{% url 'login' %}">Login</a><br><br>
+<a href="{% url 'logout' %}">Logout</a><br><br>
+<a href="/admin">Admin</a>(Page Link Wont be visible in the actual website)<br><br>
+<a href="{% url 'register' %}">Register</a><br><br> {{count}} requests have been made so far<br><br>
+<br><br> {% for type in types %} {{type.name}}: {% for service in services %} {% if service.type.name == type.name %} {{service}} {% endif %} {% endfor %}
+
+<br> {% endfor %}
+<br>Review:
+<br> {% for review in reviews %} {{review.subject}}
+<br>{{review.body}}<br>{{review.author}}{% endfor %}
+<br><br> {% for help in helps %} {{help.type}}: {% for helper in helpers %} {% if helper.type.type == help.type %} {{helper}} {% endif %} {% endfor %} <br>{% endfor %} {% endblock %}
