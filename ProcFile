@@ -1,1 +1,1 @@
-web: gunicorn Foodwagon.wsgi --lof-file -
+web: gunicorn Foodwagon.wsgi --log-file -
