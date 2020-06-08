@@ -16,6 +16,7 @@ class Lawyer(models.Model):
 
 class Type(models.Model):
     name=models.CharField(max_length=120,null=False)
+    first=models.BooleanField()
     
     def __str__(self):
         return self.name
@@ -36,6 +37,7 @@ class Review(models.Model):
     subject=models.CharField(max_length=120,null=False)
     body=models.CharField(max_length=500,null=False)
     author=models.CharField(max_length=120,null=False)
+    first=models.BooleanField()
     
     def __str__(self):
         return self.subject
@@ -56,6 +58,7 @@ class Request(models.Model):
 
 class Help(models.Model):
     type=models.CharField(max_length=120,null=False,blank=False)
+    first=models.BooleanField()
 
     def __str__(self):
         return self.type

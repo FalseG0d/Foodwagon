@@ -10,6 +10,9 @@ from .forms import *
 #from django.contrib.auth.forms import UserCreationForm 
 # Create your views here.
 
+def error404(request,exception):
+    return render(request,'home/404.html')
+
 def logoutUser(request):
     logout(request)
     return redirect('/')
@@ -49,7 +52,7 @@ def make_request(request):
         form=RequestForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return render(request,'home/success.html')
 
     context={
         'form':form,
