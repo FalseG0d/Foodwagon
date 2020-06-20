@@ -4,29 +4,46 @@ from django.http import HttpResponse
 
 from django.contrib.auth.decorators import login_required
 
+from Service.models import *
 from .models import *
+from Request.models import Order
 
-from .forms import *
+from .forms import CreateUserForm
 #from django.contrib.auth.forms import UserCreationForm 
 # Create your views here.
+from django.contrib.auth.decorators import login_required
+
+from .decorators import unauthenticated_user
 
 def error404(request,exception):
-    return render(request,'home/404.html')
+    parent_types=Parent_Type.objects.all()
+    context={
+        'parent_types':parent_types,
+    }
+    return render(request,'home/404.html',context)
 
+
+@login_required(login_url='login')
 def logoutUser(request):
     logout(request)
     return redirect('/')
 
+@unauthenticated_user
 def register(request):
+    parent_types=Parent_Type.objects.all()
     form=CreateUserForm()
     if request.method=='POST':
-        form=CreateUserForm(request.POST)
+        form=CreateUserForm(data=request.POST)
         if form.is_valid():
             form.save()
             return redirect('/')
-    return render(request,'home/register.html',{'form':form})
+    context={
+        'parent_types':parent_types,
+        'form':form
+    }
+    return render(request,'home/register.html',context)
 
-
+@unauthenticated_user
 def loginUser(request):
     if request.method=='POST':
         username=request.POST.get('username')
@@ -40,36 +57,25 @@ def loginUser(request):
 
         else:
             return HttpResponse('Username or Password Incorrect')
-
-    return render(request,'home/login.html')
-
-@login_required(login_url='login')
-def make_request(request):
-    form=RequestForm()
-
-    if request.method=='POST':
-
-        form=RequestForm(request.POST,request.FILES)
-        if form.is_valid():
-            form.save()
-            return render(request,'home/success.html')
-
+    parent_types=Parent_Type.objects.all()
     context={
-        'form':form,
+        'parent_types':parent_types,
     }
-
-    return render(request,'home/request.html',context)
+    return render(request,'home/login.html',context)
+    
 
 def home(request):
 
     #register=UserCreationForm()
     
-    services=Service.objects.all()
+    services=Product.objects.all()
     types=Type.objects.all()
     reviews=Review.objects.all()
-    count=Request.objects.count()
+    count=Order.objects.count()
     helpers=Helper.objects.all()
     helps=Help.objects.all()
+    talkers=Talker.objects.all()
+    parent_types=Parent_Type.objects.all()
 
     context={
         'services':services,
@@ -78,8 +84,8 @@ def home(request):
         'count':count,
         'helpers':helpers,
         'helps':helps,
+        'talkers':talkers,
+        'parent_types':parent_types,
     }
 
-    return render(request,'home/dashboard.html',context)
-
-#def User(request,pk):
+    return render(request,'home/index.html',context)
