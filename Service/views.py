@@ -45,6 +45,10 @@ def service(request,pk):
     form=OrderForm(initial={'product':product})
 
     if request.method=='POST':
+
+        if not request.user.is_authenticated:
+            return redirect('login')
+            
         form=OrderForm(data=request.POST,files=request.FILES)
         if form.is_valid():
             content_form = form.save(commit=False)

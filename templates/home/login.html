@@ -5,6 +5,6 @@
         {% csrf_token %}Username: <input name="username" required placeholder="Username" type="text"> Password: <br><input name="password" required placeholder="Password" type="password"><br>
         <input type="submit" name="Register" id="">
     </form>
-    New User? <a href="{% url 'register' %}">Register</a>
+    New User? <a href="{% url 'register' %}">Register</a><br> Forgot Password? <a href="{% url 'reset_password' %}">Reset Password</a>
 
 </div><br><br> {% endblock %}

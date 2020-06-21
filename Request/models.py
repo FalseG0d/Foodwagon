@@ -13,7 +13,7 @@ class Order(models.Model):
     )
     customer_id=models.CharField(max_length=200)
     date_ordered=models.DateTimeField(auto_now_add=True)
-    status=models.CharField(max_length=20,choices=STATUS,default=STATUS[1][0])
+    status=models.CharField(max_length=20,choices=STATUS,default=STATUS[0][0])
 
     product=models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True,null=True)
     requirenment = models.FileField(upload_to='documents',null=True)
