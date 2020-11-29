@@ -1,1 +1,0 @@
-web: gunicorn Foodwagon.wsgi --log-file -
